@@ -62,14 +62,14 @@ POST http://localhost:3000/agents/1/hopitaux HTTP/1.1
 content-type: application/json
 
 {
-    "nom" : "HG-GOMA"
+    "nom" : "HG-KIN"
 }
 
 ###
 GET http://localhost:3000/agents/1/hopitaux HTTP/1.1
 
 ###
-POST http://localhost:3000/agents/1/hopitaux/1/medecins HTTP/1.1
+POST http://localhost:3000/agents/1/hopitaux/2/medecins HTTP/1.1
 content-type: application/json
 
 {

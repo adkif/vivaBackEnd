@@ -5,9 +5,9 @@ const Position = (position) => {
     this.longitude = position.longitude;
     this.latitude = position.latitude;
 }
-Position.create = (position, result) => {
-    let sql = 'INSERT INTO positions SET ?';
-    let params = [position];
+Position.create = (citoyenId, position, result) => {
+    let sql = 'INSERT INTO positions (longitude, latitude, citoyenId) VALUES (?, ?, ?)';
+    let params = [position.longitude, position.latitude, citoyenId];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);

@@ -7,13 +7,14 @@ const Citoyen = (citoyen) => {
     this.prenom = citoyen.prenom;
     this.age = citoyen.age;
     this.sexe = citoyen.sexe;
-    this.contact = citoyen.contact;
-    this.adresse = citoyen.adresse;
 }
 
 Citoyen.create = (citoyen, result) => {
-    let sql = 'INSERT INTO citoyens SET ?';
-    let params = [citoyen];
+    let sql = "INSERT INTO citoyens SET ?";
+    let params = [
+        citoyen
+    ];
+    console.log(params);
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);
@@ -22,6 +23,7 @@ Citoyen.create = (citoyen, result) => {
             result(null, res);
         }
     });
+
 }
 
 Citoyen.findById = (citoyenId, result) => {
@@ -84,7 +86,7 @@ Citoyen.getAll = result => {
 
 Citoyen.updateById = (citoyenId, citoyen, result) => {
     let sql = 'UPDATE citoyens SET nom = ?, postnom = ?, prenom = ?, age = ?, sexe = ? WHERE citoyenId = ?';
-    let params = [citoyen.nom, citoyen.postnom, citoyen.prenom, citoyenId];
+    let params = [citoyen.nom, citoyen.postnom, citoyen.prenom, citoyen.age, citoyen.sexe, citoyenId];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);

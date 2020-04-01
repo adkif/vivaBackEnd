@@ -5,9 +5,9 @@ const Cas = (cas) => {
     this.etat = cas.etat;
 }
 
-Cas.create = (cas, result) => {
-    let sql = 'INSERT INTO cas SET ?';
-    let params = [cas];
+Cas.create = (citoyenId, medecinId, cas, result) => {
+    let sql = 'INSERT INTO cas (citoyenId, medecinId, etat) VALUES (?, ?,?)';
+    let params = [citoyenId, medecinId, cas.etat];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);
@@ -18,9 +18,9 @@ Cas.create = (cas, result) => {
     });
 }
 
-Cas.findById = (casId, result) => {
-    let sql = 'SELECT * FROM cas WHERE casId = ?';
-    db.query(sql, [casId], (err, res) => {
+Cas.findById = (citoyenId, result) => {
+    let sql = 'SELECT * FROM (cas INNER JOIN citoyens ON cas.citoyenId = citoyens.citoyenId) WHERE cas.citoyenId = ?';
+    db.query(sql, [citoyenId], (err, res) => {
         if (err) {
             result(err, null);
         } else {
@@ -34,9 +34,9 @@ Cas.findById = (casId, result) => {
     });
 }
 
-Cas.remove = (casId, result) => {
+Cas.remove = (citoyenId, result) => {
     let sql = 'DELETE FROM cas WHERE casId = ?';
-    db.query(sql, [casId], (err, res) => {
+    db.query(sql, [citoyenId], (err, res) => {
         if (err) {
             result(err, null);
         } else {
@@ -49,9 +49,9 @@ Cas.remove = (casId, result) => {
     });
 }
 
-Cas.getAll = result => {
-    let sql = 'SELECT * FROM cas';
-    db.query(sql, (err, res) => {
+Cas.getAll = (hopitalId, result) => {
+    let sql = 'SELECT * FROM ((cas INNER JOIN medecins ON cas.medecinId = medecins.medecinId) INNER JOIN citoyens ON cas.citoyenId = citoyens.citoyenId) WHERE hopitalId = ?;';
+    db.query(sql, [hopitalId], (err, res) => {
         if (err) {
             console.log("error: " + err);
             result(err, null);
@@ -61,9 +61,9 @@ Cas.getAll = result => {
     });
 }
 
-Cas.updateById = (casId, cas, result) => {
-    let sql = 'UPDATE cas SET etat = ? WHERE casId = ?';
-    let params = [cas.etat];
+Cas.updateById = (citoyenId, cas, result) => {
+    let sql = 'UPDATE cas SET etat = ? WHERE citoyenId = ?';
+    let params = [cas.etat, citoyenId];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);
@@ -72,10 +72,11 @@ Cas.updateById = (casId, cas, result) => {
             if (res.affectedRows == 0) {
                 result({ kind: 'notFound' }, null);
             } else {
-                result(null, { casId: casId, cas });
+                result(null, { citoyenId: citoyenId, cas });
             }
         }
     });
 }
+
 
 module.exports = Cas;

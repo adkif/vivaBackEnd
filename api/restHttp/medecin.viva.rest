@@ -1,5 +1,8 @@
+
+GET http://localhost:3000/hopitaux/1 HTTP/1.1
+
 ###
-POST http://localhost:3000/sante/medecins HTTP/1.1
+POST http://localhost:3000/hopitaux/1/medecins HTTP/1.1
 content-type: application/json
 
 {
@@ -8,7 +11,7 @@ content-type: application/json
     "prenom" :"Adrienne"
 }
 ###
-POST http://localhost:3000/sante/medecins HTTP/1.1
+POST http://localhost:3000/hopitaux/1/medecins HTTP/1.1
 content-type: application/json
 
 {
@@ -17,30 +20,30 @@ content-type: application/json
     "prenom" :"Christelle"
 }
 ### 
-GET http://localhost:3000/sante/medecins/3 HTTP/1.1
+GET http://localhost:3000/hopitaux/1/medecins/3 HTTP/1.1
 
 ###
-GET http://localhost:3000/sante/medecins HTTP/1.1
+GET http://localhost:3000/hopitaux/1/medecins HTTP/1.1
 ###
-GET http://localhost:3000/sante/medecins/1/messages/private HTTP/1.1
+GET http://localhost:3000/hopitaux/1/medecins/2/messages/private HTTP/1.1
 ###
-POST http://localhost:3000/sante/medecins/2/messages/private/1 HTTP/1.1
+POST http://localhost:3000/hopitaux/1/medecins/2/messages/private/1 HTTP/1.1
 Content-Type: application/json
 
 {
     "msg": "Bonjour Monsieur"
 }
 ###
-POST  http://localhost:3000/sante/medecins/2/messages HTTP/1.1
+POST  http://localhost:3000/hopitaux/1/medecins/2/messages HTTP/1.1
 Content-Type: application/json
 
 {
     "msg": "Salut"
 }
 ###
-DELETE http://localhost:3000/sante/medecins/5 HTTP/1.1
+DELETE http://localhost:3000/hopitaux/1/medecins/5 HTTP/1.1
 ###
-PUT http://localhost:3000/sante/medecins/1 HTTP/1.1
+PUT http://localhost:3000/hopitaux/1/medecins/2 HTTP/1.1
 content-type: application/json
 
 {
@@ -48,5 +51,21 @@ content-type: application/json
     "postnom": "Kambale",
     "prenom":"Vianney"
 }
+###
+GET http://localhost:3000/hopitaux/2/medecins/3/cas HTTP/1.1
+###
+GET http://localhost:3000/hopitaux/1/medecins/3/cas/3 HTTP/1.1
+###
+PUT http://localhost:3000/hopitaux/1/medecins/5/cas/3 HTTP/1.1
+Content-Type: application/json
 
+{
+    "etat":"stable"
+}
+###
+POST http://localhost:3000/hopitaux/2/medecins/4/cas/5768 HTTP/1.1
+Content-Type: application/json
 
+{
+    "etat":"stable"
+}

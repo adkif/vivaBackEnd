@@ -26,5 +26,12 @@ router.post('/:hopitalId/medecins/:medecinId/messages', hospital.sendPublicMessa
 router.get('/:hopitalId/medecins/:medecinId/messages/private/', hospital.findPrivateMessages);
 /* POST send privatly message*/
 router.post('/:hopitalId/medecins/:medecinId/messages/private/:agentId', hospital.sendPrivateMessage);
+/* Manage case */
+router.route('/:hopitalId/medecins/:medecinId/cas')
+    .get(hospital.getAllcase);
+router.route('/:hopitalId/medecins/:medecinId/cas/:citoyenId')
+    .post(hospital.confirmCase)
+    .put(hospital.updateCase)
+    .get(hospital.getOneCase);
 
 module.exports = router;

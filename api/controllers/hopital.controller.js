@@ -1,6 +1,7 @@
 'use strict';
 const Hopital = require('../models/hopital.model');
-
+const Cas = require('../models/cas.model');
+const Medecin = require('../models/medecin.model');
 exports.findAll = (req, res) => {
     Hopital.getAll((err, data) => {
         if (err) {
@@ -32,7 +33,7 @@ exports.create = (req, res) => {
 }
 
 exports.findOne = (req, res) => {
-    Hopital.findById(hopitalId, (err, data) => {
+    Hopital.findById(req.params.hopitalId, (err, data) => {
         if (err) {
             if (err.kind == "notFound") {
                 res.status(404).json({
@@ -214,6 +215,72 @@ exports.findPrivateMessages = (req, res) => {
             res.status(500)
                 .json({
                     message: err.message + "Some error occurred while retrieving private messages"
+                });
+        } else {
+            res.json(data);
+        }
+    });
+}
+
+exports.getAllcase = (req, res) => {
+    Cas.getAll(req.params.hopitalId, (err, data) => {
+        if (err) {
+            res.status(500)
+                .json({
+                    message: err.message + "Some error occurred while retrieving cases"
+                });
+        } else {
+            res.json(data);
+        }
+    });
+}
+
+exports.updateCase = (req, res) => {
+    Cas.updateById(req.params.citoyenId, req.body, (err, data) => {
+        if (err) {
+            if (err.kind == "notFound") {
+                res.status(404).json({
+                    message: 'Not found case with citizen id ' + req.params.citoyenId
+                });
+            } else {
+                res.status(500).json({
+                    message: "Error updating case with citizen id " + req.params.citoyenId
+                });
+            }
+        } else {
+            res.json(data);
+        }
+    });
+}
+
+exports.getOneCase = (req, res) => {
+    Cas.findById(req.params.citoyenId, (err, data) => {
+        if (err) {
+            if (err.kind == "notFound") {
+                res.status(404).json({
+                    message: 'Not found case with citizen id' + req.params.citoyenId
+                });
+            } else {
+                res.status(500).json({
+                    message: "Error retrieving case with citizen id " + req.params.citoyenId
+                });
+            }
+        } else {
+            res.json(data);
+        }
+    });
+}
+exports.confirmCase = (req, res) => {
+    if (!req.body) {
+        res.status(400).json({
+            message: "Content can not be empty"
+        });
+    }
+    Cas.create(req.params.citoyenId, req.params.medecinId, req.body, (err, data) => {
+        if (err) {
+            res.status(500)
+                .json({
+                    message: err.message + "Some error occurred while confirmed case"
                 });
         } else {
             res.json(data);

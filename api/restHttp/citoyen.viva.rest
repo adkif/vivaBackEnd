@@ -1,0 +1,38 @@
+# GET http://localhost:3000/citoyens HTTP/1.1
+# ###
+# POST http://localhost:3000/citoyens HTTP/1.1
+# content-type: application/json
+
+# {
+#     "nom":"Likoko",
+#     "postnom":"Liko",
+#     "prenom":"Justin",
+#     "age":24,
+#     "sexe":"M"
+# }
+
+###
+GET http://localhost:3000/citoyens/6 HTTP/1.1
+
+###
+PUT http://localhost:3000/citoyens/6 HTTP/1.1
+content-type: application/json
+
+{
+    "nom":"Julien",
+    "postnom":"Liko",
+    "prenom":"Mecano",
+    "age":67,
+    "sexe":"M"
+}
+###
+DELETE  http://localhost:3000/citoyens/10 HTTP/1.1
+
+###
+POST http://localhost:3000/citoyens/1 HTTP/1.1
+content-type : application/json
+
+{
+    "longitude":26.9856543893456,
+    "latitude":3.8763438912345
+}

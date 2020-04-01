@@ -1,5 +1,7 @@
 'use strict';
 const Citoyen = require('../models/citoyen.model');
+const Position = require('../models/position.model');
+
 
 exports.findOne = (req, res) => {
     Citoyen.findById(req.params.citoyenId, (err, data) => {
@@ -65,7 +67,7 @@ exports.add = (req, res) => {
         if (err) {
             res.status(500)
                 .json({
-                    message: err.message + "Some error occurred while added citoyen"
+                    message: err.message + " Some error occurred while added citoyen"
                 });
         } else {
             res.json(data);
@@ -115,3 +117,21 @@ exports.delete = (req, res) => {
         }
     });
 }
+
+exports.newPosition = (req, res) => {
+    if (!req.body) {
+        res.status(400).json({
+            message: "Content can not be empty"
+        });
+    }
+    Position.create(req.params.citoyenId, req.body, (err, data) => {
+        if (err) {
+            res.status(500)
+                .json({
+                    message: err.message + " Some error occurred while added position"
+                });
+        } else {
+            res.json(data);
+        }
+    });
+};
