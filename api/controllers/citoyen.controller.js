@@ -134,4 +134,4 @@ exports.newPosition = (req, res) => {
             res.json(data);
         }
     });
-};
+}

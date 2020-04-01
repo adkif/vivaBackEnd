@@ -93,7 +93,7 @@ exports.delete = (req, res) => {
     });
 }
 
-exports.getAllMedecin = ((req, res) => {
+exports.getAllMedecin = (req, res) => {
     Medecin.getAll(req.params.hopitalId, (err, data) => {
         if (err) {
             res.status(500)
@@ -104,9 +104,9 @@ exports.getAllMedecin = ((req, res) => {
             res.json(data);
         }
     });
-});
+}
 
-exports.addMedecin = ((req, res) => {
+exports.addMedecin = (req, res) => {
     if (!req.body) {
         res.status(400).json({
             message: "Content can not be empty"
@@ -122,9 +122,9 @@ exports.addMedecin = ((req, res) => {
             res.json(data);
         }
     });
-});
+};
 
-exports.findOneMedecin = ((req, res) => {
+exports.findOneMedecin = (req, res) => {
     Medecin.findById(req.params.medecinId, req.params.hopitalId, (err, data) => {
         if (err) {
             if (err.kind == "notFound") {
@@ -140,9 +140,9 @@ exports.findOneMedecin = ((req, res) => {
             res.json(data);
         }
     });
-});
+};
 
-exports.updateMedecin = ((req, res) => {
+exports.updateMedecin = (req, res) => {
     if (!req.body) {
         res.status(400).json({
             message: "Content can not be empty"
@@ -164,9 +164,9 @@ exports.updateMedecin = ((req, res) => {
         }
     });
 
-});
+};
 
-exports.deleteMedecin = ((req, res) => {
+exports.deleteMedecin = (req, res) => {
     Medecin.remove(req.params.medecinId, (err, data) => {
         if (err) {
             if (err.kind == "notFound") {
@@ -184,7 +184,7 @@ exports.deleteMedecin = ((req, res) => {
             });
         }
     });
-});
+};
 
 exports.sendPrivateMessage = (req, res) => {
     Medecin.sendMessage(req.params.agentId, req.params.medecinId, req.body.msg, (err, data) => {
