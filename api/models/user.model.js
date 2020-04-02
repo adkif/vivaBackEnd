@@ -80,4 +80,20 @@ User.updateById = (userId, user, result) => {
     });
 }
 
+User.login = (user, result) => {
+    const sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    db.query(sql, params, (err, res) => {
+        if (err) {
+            res(err, null)
+        } else {
+            if (res.length) {
+                console.log('user found: ', res[0]);
+                result(null, res);
+            } else {
+                result({ kind: "notFound" }, null)
+            }
+        }
+    });
+}
+
 module.exports = User;

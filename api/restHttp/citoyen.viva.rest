@@ -29,10 +29,19 @@ content-type: application/json
 DELETE  http://localhost:3000/citoyens/10 HTTP/1.1
 
 ###
-POST http://localhost:3000/citoyens/1 HTTP/1.1
+POST http://localhost:3000/citoyens/2 HTTP/1.1
 content-type : application/json
 
 {
-    "longitude":26.9856543893456,
+    "longitude":26.9856543899656,
     "latitude":3.8763438912345
+}
+###
+GET http://localhost:3000/citoyens/1/questions HTTP/1.1
+###
+POST http://localhost:3000/citoyens/1/questions/2 HTTP/1.1
+content-type : application/json
+
+{
+    "reponse": "oui"
 }

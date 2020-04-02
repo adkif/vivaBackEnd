@@ -43,4 +43,16 @@ Position.getAll = result => {
     });
 }
 
+Position.getAllForOne = (citoyenId, result) => {
+    let sql = 'SELECT * FROM positions WHERE citoyenId = ?';
+    db.query(sql, [citoyenId], (err, res) => {
+        if (err) {
+            console.log("error: " + err);
+            result(err, null);
+        } else {
+            result(null, res);
+        }
+    });
+}
+
 module.exports = Position;

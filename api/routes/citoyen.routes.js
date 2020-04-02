@@ -14,5 +14,11 @@ router.route('/:citoyenId/messages')
     .post(citizen.sendPublicMessage);
 router.route('/:citoyenId/messages/private/:agentId')
     .post(citizen.sendPrivateMessage);
+//Citizen get questions
+router.route('/:citoyenId/questions')
+    .get(citizen.getAllQuestion);
+//Citizen response question one by one
+router.route('/:citoyenId/questions/:questionId')
+    .post(citizen.makeTest);
 
 module.exports = router;

@@ -10,7 +10,7 @@ const Citoyen = (citoyen) => {
 }
 
 Citoyen.create = (citoyen, result) => {
-    let sql = "INSERT INTO citoyens SET ?";
+    let sql = "INSERT INTO citoyens SET ?;";
     let params = [
         citoyen
     ];

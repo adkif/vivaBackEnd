@@ -5,7 +5,6 @@ const Question = (question) => {
     this.questionnaire = question.questionnaire;
 }
 
-
 Question.create = (question, result) => {
     let sql = 'INSERT INTO questions SET ?';
     let params = [question];

@@ -1,8 +1,8 @@
 'use strict';
 const Citoyen = require('../models/citoyen.model');
 const Position = require('../models/position.model');
-
-
+const Result = require('../models/resultat.model');
+const Question = require('../models/questions.model');
 exports.findOne = (req, res) => {
     Citoyen.findById(req.params.citoyenId, (err, data) => {
         if (err) {
@@ -20,7 +20,6 @@ exports.findOne = (req, res) => {
         }
     });
 }
-
 exports.findAll = (req, res) => {
     Citoyen.getAll((err, data) => {
         if (err) {
@@ -33,7 +32,6 @@ exports.findAll = (req, res) => {
         }
     });
 }
-
 exports.sendPrivateMessage = (req, res) => {
     Citoyen.sendMessage(req.params.agentId, req.params.citoyenId, req.body.msg, (err, data) => {
         if (err) {
@@ -46,7 +44,6 @@ exports.sendPrivateMessage = (req, res) => {
         }
     });
 }
-
 exports.sendPublicMessage = (req, res) => {
     Citoyen.postMessage(req.params.citoyenId, req.body.msg, (err, data) => {
         if (err) {
@@ -56,7 +53,6 @@ exports.sendPublicMessage = (req, res) => {
         }
     });
 }
-
 exports.add = (req, res) => {
     if (!req.body) {
         res.status(400).json({
@@ -74,7 +70,6 @@ exports.add = (req, res) => {
         }
     });
 }
-
 exports.update = (req, res) => {
     if (!req.body) {
         res.status(400).json({
@@ -97,7 +92,6 @@ exports.update = (req, res) => {
         }
     });
 }
-
 exports.delete = (req, res) => {
     Citoyen.remove(req.params.citoyenId, (err, data) => {
         if (err) {
@@ -117,7 +111,6 @@ exports.delete = (req, res) => {
         }
     });
 }
-
 exports.newPosition = (req, res) => {
     if (!req.body) {
         res.status(400).json({
@@ -129,6 +122,35 @@ exports.newPosition = (req, res) => {
             res.status(500)
                 .json({
                     message: err.message + " Some error occurred while added position"
+                });
+        } else {
+            res.json(data);
+        }
+    });
+}
+exports.getAllQuestion = (req, res) => {
+    Question.getAll((err, data) => {
+        if (err) {
+            res.status(500)
+                .json({
+                    message: err.message + "Some error occurred while retrieving questions"
+                });
+        } else {
+            res.json(data);
+        }
+    });
+}
+exports.makeTest = (req, res) => {
+    if (!req.body) {
+        res.status(400).json({
+            message: "You must choose response"
+        });
+    }
+    Result.create(req.params.citoyenId, req.params.questionId, req.body, (err, data) => {
+        if (err) {
+            res.status(500)
+                .json({
+                    message: err.message + " Some error occurred while response to question"
                 });
         } else {
             res.json(data);

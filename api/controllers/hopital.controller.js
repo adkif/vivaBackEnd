@@ -2,6 +2,7 @@
 const Hopital = require('../models/hopital.model');
 const Cas = require('../models/cas.model');
 const Medecin = require('../models/medecin.model');
+const Haversines = require('../models/haversine.model');
 exports.findAll = (req, res) => {
     Hopital.getAll((err, data) => {
         if (err) {
@@ -283,7 +284,20 @@ exports.confirmCase = (req, res) => {
                     message: err.message + "Some error occurred while confirmed case"
                 });
         } else {
-            res.json(data);
+            Haversines.getSuspectCitizen(req.params.citoyenId, (data) => {
+                let suspects = [];
+                for (let i in data[1]) {
+                    let citizen = data[1][i];
+                    for (let j in data[0]) {
+                        let relatives = data[0][j];
+                        let d = Haversines.distance(relatives.latitude, citizen.latitude, relatives.longitude, citizen.longitude);
+                        if (d < 50 & d != 0 & relatives.citoyenId != req.params.citoyenId) {
+                            suspects.push(relatives);
+                        }
+                    }
+                }
+                res.json(suspects)
+            });
         }
     });
 }
