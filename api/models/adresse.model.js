@@ -11,9 +11,17 @@ const Adresse = (adresse) => {
 }
 
 
-Adresse.create = (adresse, result) => {
-    let sql = 'INSERT INTO adresses SET ?';
-    let params = [adresse];
+Adresse.create = (userId, adresse, result) => {
+    let sql = 'INSERT INTO adresses (province, ville, commune, quartier, avenue, numero,  userId) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    let params = [
+        adresse.province,
+        adresse.ville,
+        adresse.commune,
+        adresse.quartier,
+        adresse.avenue,
+        adresse.num,
+        userId
+    ];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);

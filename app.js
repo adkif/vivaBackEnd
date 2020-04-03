@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var usersRouter = require('./api/routes/user.routes');
 let agentRouter = require('./api/routes/agent.routes');
 let hospitalRouter = require('./api/routes/hopital.routes');
 let citizenRouter = require('./api/routes/citoyen.routes');

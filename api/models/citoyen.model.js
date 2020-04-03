@@ -9,10 +9,15 @@ const Citoyen = (citoyen) => {
     this.sexe = citoyen.sexe;
 }
 
-Citoyen.create = (citoyen, result) => {
-    let sql = "INSERT INTO citoyens SET ?;";
+Citoyen.create = (userId, citoyen, result) => {
+    let sql = "INSERT INTO citoyens (nom, postnom, prenom, age, sexe, userId) VALUES (?, ?, ?, ?, ?, ?);";
     let params = [
-        citoyen
+        citoyen.nom,
+        citoyen.postnom,
+        citoyen.prenom,
+        citoyen.age,
+        citoyen.sexe,
+        userId
     ];
     console.log(params);
     db.query(sql, params, (err, res) => {

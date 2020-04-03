@@ -7,9 +7,13 @@ const Contact = (contact) => {
 }
 
 
-Contact.create = (contact, result) => {
-    let sql = 'INSERT INTO contacts SET ?';
-    let params = [contact];
+Contact.create = (userId, contact, result) => {
+    let sql = 'INSERT INTO contacts (numero, email, userId) VALUES (?, ?, ?)';
+    let params = [
+        contact.phone,
+        contact.email,
+        userId
+    ];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);

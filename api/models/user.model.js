@@ -8,8 +8,11 @@ const User = (user) => {
 
 
 User.create = (user, result) => {
-    let sql = 'INSERT INTO users SET ?';
-    let params = [user];
+    let sql = 'INSERT INTO users (username, password) VALUES (?, ?)';
+    let params = [
+        user.username,
+        user.password
+    ];
     db.query(sql, params, (err, res) => {
         if (err) {
             console.log("error: " + err);
@@ -82,6 +85,7 @@ User.updateById = (userId, user, result) => {
 
 User.login = (user, result) => {
     const sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+    const params = [user.username, user.password];
     db.query(sql, params, (err, res) => {
         if (err) {
             res(err, null)
